@@ -15,12 +15,15 @@ const orderRouter = express.Router();
 
 orderRouter.post('/', (req,res) => {
     const { orderid, productId } = req.body;
+    const product = data.products.find(product => product.id == productId)
      if (orderid == null || productId == null) {
-         res.sendStatus(400);
-       } else {
+         res.status(400).send("missing");
+       } else if (product.countInStock == 0) {
+        res.status(404).send("Product not found")
+       }
+       else {
         const result = new Order(orderid, productId)
         data.orders.push(result)
-        const product = data.products.find(product => product.id == productId)
         product.countInStock--;
         res.send("Order placed")
        }

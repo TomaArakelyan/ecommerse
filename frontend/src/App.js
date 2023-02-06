@@ -11,6 +11,7 @@ function App() {
           <img
                 className="logo"
                 src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*9hcinRdaHicrNpNE.jpg"
+                alt = 'logo'
                
         />
           </Link>

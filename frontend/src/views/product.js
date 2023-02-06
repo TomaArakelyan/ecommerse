@@ -3,6 +3,12 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import {Badge, Button, Col, ListGroup, ListGroupItem, Row }from "react-bootstrap"
 
+//TODO: Implement this function
+async function  HandleClick(productId){
+    console.log("bought")
+    const payload = productId;
+    await axios.post('/api/orders', payload);
+}
 
 function Product(){
 
@@ -46,7 +52,12 @@ function Product(){
                                 </Col>
                                 <Col>
                                 {product.countInStock >0 ? (
-                                    <Badge bg = "success"> In Stock</Badge>
+                                    <Badge bg = "success"> In Stock
+                                        <ListGroup.Item>
+                                          Count in Stock: {product.countInStock}
+                                        </ListGroup.Item>
+                                    </Badge>
+                                    
                                 ) : (
                                     <Badge bg = "warning"> Unavailable </Badge>
                                 )
@@ -58,7 +69,7 @@ function Product(){
                         {product.countInStock > 0 && (
                             <ListGroupItem>
                                 <div className="d-grid">
-                                    <Button variant = "primary">
+                                    <Button variant = "primary" onClick={() => HandleClick(product.id)}>
                                         Buy
                                     </Button>
 
