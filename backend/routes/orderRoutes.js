@@ -16,7 +16,7 @@ const orderRouter = express.Router();
 orderRouter.post('/', (req,res) => {
     const { orderid, productId } = req.body;
     const product = data.products.find(product => product.id == productId)
-     if (orderid == null || productId == null) {
+     if (productId == null) {
          res.status(400).send("missing");
        } else if (product.countInStock == 0) {
         res.status(404).send("Product not found")
@@ -34,5 +34,14 @@ orderRouter.post('/', (req,res) => {
     res.send(data.orders)
  })
 
+ orderRouter.get('/:id', (req,res)=> {
+    const order = data.orders.find((o) => o.orderId == req.params.id)
+    if (order){
+        res.send(order)
+    }
+    else {
+        res.status(404).send({message: "Order not found"})
+    }
+})
 
  export default orderRouter;

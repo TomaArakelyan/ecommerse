@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'
 import { Helmet } from 'react-helmet-async';
 
-function Home() {
+function HomeScreen() {
     const [products, setProducts] = useState([])
     useEffect(()=> {
         const fetchData = async () => {
@@ -44,4 +44,4 @@ function Home() {
 
 )}
 
-export default Home;
+export default HomeScreen;

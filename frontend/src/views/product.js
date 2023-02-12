@@ -3,14 +3,9 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import {Badge, Button, Col, ListGroup, ListGroupItem, Row }from "react-bootstrap"
 
-//TODO: Implement this function
-async function  HandleClick(productId){
-    console.log("bought")
-    const payload = productId;
-    await axios.post('/api/orders', payload);
-}
 
-function Product(){
+
+function ProductScreen(){
 
     const params = useParams();
     const {id} = params;
@@ -24,6 +19,17 @@ function Product(){
         fetchData();
     }, [id] );
 
+    async function HandleClick(productId){
+        const baseURL = window.location.origin;
+        try {
+          const response = await axios.post(`${baseURL}/api/orders`, {...product, productId});
+          console.log(response.data);
+          window.location.reload();
+        } catch (error) {
+          console.error(error);
+        }
+    };
+    
     return (
         <div>
             <Row>
@@ -86,4 +92,4 @@ function Product(){
     )
 }
 
-export default Product;
+export default ProductScreen;

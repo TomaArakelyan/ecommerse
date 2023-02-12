@@ -1,6 +1,6 @@
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
-import Home from './views/home'
-import Product from "./views/product";
+import HomeScreen from './views/home'
+import ProductScreen from "./views/product";
 
 function App() {
   return (
@@ -19,8 +19,8 @@ function App() {
         </header>
         <main>
           <Routes>
-            <Route path = "/product/:id" element = {<Product/>} />
-            <Route path = "/" element = {<Home/>}/>
+            <Route path = "/product/:id" element = {<ProductScreen/>} />
+            <Route path = "/" element = {<HomeScreen/>}/>
           </Routes>
         
         </main>
