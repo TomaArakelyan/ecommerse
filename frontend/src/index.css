@@ -12,7 +12,7 @@ header {
   padding: 1rem;
 }
 header .logo {
-  height: 40px; 
+  height: 40px;
   width: 100px;
 }
 
@@ -75,14 +75,13 @@ h1 {
   text-align: center;
 }
 
-.product-image{
+.product-image {
   max-width: 100%;
   border-radius: 5px;
   width: 500px;
   height: 700px;
-
 }
-button{
+button {
   background-color: #f9ca24;
   border: none;
   padding: 1em;
@@ -90,4 +89,7 @@ button{
   font-weight: bold;
   width: 30%;
   text-align: center;
+}
+.small-container {
+  max-width: 600px;
 }

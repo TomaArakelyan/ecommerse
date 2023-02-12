@@ -30,7 +30,8 @@ const data = {
     {
       id: 4,
       title: "Jordan",
-      image: "https://cdn-images.farfetch-contents.com/15/48/51/33/15485133_27727288_1000.jpg",
+      image:
+        "https://cdn-images.farfetch-contents.com/15/48/51/33/15485133_27727288_1000.jpg",
       description: "Jordan x Travis Scott Air Jordan 1 Low OG SP sneakers",
       price: 200,
       countInStock: 2,
@@ -38,7 +39,8 @@ const data = {
     {
       id: 5,
       title: "Jordan",
-      image: "https://cdn-images.farfetch-contents.com/15/63/30/86/15633086_28646232_1000.jpg",
+      image:
+        "https://cdn-images.farfetch-contents.com/15/63/30/86/15633086_28646232_1000.jpg",
       description: "Jordan x Travis Scott Air Jordan 1 Low OG SP sneakers",
       price: 1000,
       countInStock: 2,
@@ -46,7 +48,8 @@ const data = {
     {
       id: 6,
       title: "Jordan",
-      image: "https://cdn-images.farfetch-contents.com/19/36/57/43/19365743_42634638_1000.jpg",
+      image:
+        "https://cdn-images.farfetch-contents.com/19/36/57/43/19365743_42634638_1000.jpg",
       description: "Jordan x Travis Scott Air Jordan 1 Low OG SP sneakers",
       price: 500,
       countInStock: 0,
@@ -54,7 +57,8 @@ const data = {
     {
       id: 7,
       title: "Jordan",
-      image: "https://cdn-images.farfetch-contents.com/19/26/57/49/19265749_42210179_1000.jpg",
+      image:
+        "https://cdn-images.farfetch-contents.com/19/26/57/49/19265749_42210179_1000.jpg",
       description: "Jordan x Travis Scott Air Jordan 1 Low OG SP sneakers",
       price: 350,
       countInStock: 3,
@@ -62,7 +66,8 @@ const data = {
     {
       id: 8,
       title: "Jordan",
-      image: "https://cdn-images.farfetch-contents.com/16/39/44/94/16394494_32591952_1000.jpg",
+      image:
+        "https://cdn-images.farfetch-contents.com/16/39/44/94/16394494_32591952_1000.jpg",
       description: "Jordan x Travis Scott Air Jordan 1 Low OG SP sneakers",
       price: 200,
       countInStock: 5,
@@ -70,7 +75,8 @@ const data = {
     {
       id: 9,
       title: "Jordan",
-      image: "https://cdn-images.farfetch-contents.com/18/03/58/37/18035837_38439550_1000.jpg",
+      image:
+        "https://cdn-images.farfetch-contents.com/18/03/58/37/18035837_38439550_1000.jpg",
       description: "Jordan x Travis Scott Air Jordan 1 Low OG SP sneakers",
       price: 600,
       countInStock: 3,
@@ -79,12 +85,10 @@ const data = {
 
   orders: [
     {
-    orderId: 1,
-    productId: 2,
+      orderId: 1,
+      productId: 2,
     },
-  ]
-
+  ],
 };
-
 
 export default data;
