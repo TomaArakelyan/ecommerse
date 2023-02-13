@@ -4,22 +4,22 @@ import data from "../data.js";
 const orderRouter = express.Router();
 
 class Order {
-  constructor(orderid, productId) {
-    (this.orderid = orderid), (this.productId = productId);
+  constructor(productId, quantity) {
+    (this.productId = productId), (this.quantity = quantity);
   }
 }
 
 orderRouter.post("/", (req, res) => {
-  const { orderid, productId } = req.body;
+  const { productId, quantity } = req.body;
   const product = data.products.find((product) => product.id == productId);
-  if (productId == null) {
+  if (productId == null || quantity == null) {
     res.status(400).send("missing");
   } else if (product.countInStock == 0) {
     res.status(404).send("Product not found");
   } else {
-    const result = new Order(orderid, productId);
+    const result = new Order(productId, quantity);
     data.orders.push(result);
-    product.countInStock--;
+    product.countInStock = product.countInStock - quantity;
     res.send("Order placed");
   }
 });

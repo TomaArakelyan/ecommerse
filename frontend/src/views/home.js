@@ -31,14 +31,13 @@ function HomeScreen() {
               ></img>
             </Link>
             <div className="info">
-              <Link to={`/products/${products.id}`}>
-                <p>{products.title}</p>
-              </Link>
+              <p>{products.title}</p>
               <p>
                 <strong>${products.price}</strong>
               </p>
-
-              <button className="cart"> Add to Cart </button>
+              <Link to={`/product/${products.id}`}>
+                <button className="cart"> View details </button>
+              </Link>
             </div>
           </div>
         ))}

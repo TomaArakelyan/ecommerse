@@ -93,3 +93,18 @@ button {
 .small-container {
   max-width: 600px;
 }
+
+.add-to-cart {
+  padding-left: 10px;
+  padding-top: 8px;
+}
+
+.img-thumbnail {
+  height: 80px;
+}
+
+.empty-cart {
+  text-align: center;
+  font-size: larger;
+  padding-top: 50px;
+}

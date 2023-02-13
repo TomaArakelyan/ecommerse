@@ -87,6 +87,7 @@ const data = {
     {
       orderId: 1,
       productId: 2,
+      quantity: 1,
     },
   ],
 };
