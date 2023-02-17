@@ -3,17 +3,6 @@ import data from "../data.js";
 
 const productRouter = express.Router();
 
-class Product {
-  constructor(id, title, image, description, price, countInStock) {
-    this.id = id;
-    this.title = title;
-    this.image = image;
-    this.description = description;
-    this.price = price;
-    this.countInStock = countInStock;
-  }
-}
-
 productRouter.get("/", (req, res) => {
   res.send(data.products);
 });
@@ -39,16 +28,16 @@ productRouter.post("/", (req, res) => {
   ) {
     res.status(400).send("Missing data");
   } else {
-    const result = new Product(
-      id,
-      title,
-      image,
-      description,
-      price,
-      countInStock
-    );
+    const result = {
+      id: id,
+      title: title,
+      image: image,
+      description: description,
+      price: price,
+      countInStock: countInStock,
+    };
     data.products.push(result);
-    res.send("Product Created");
+    res.send(result);
   }
 });
 
@@ -79,7 +68,7 @@ productRouter.put("/:id", (req, res) => {
     if (req.body.countInStock) {
       product.countInStock = req.body.countInStock;
     }
-    res.send("Product updated");
+    res.send(product);
   } else {
     res.status(404).send({ message: "Product not found" });
   }

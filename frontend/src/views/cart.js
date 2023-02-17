@@ -31,13 +31,14 @@ export default function CartScreen() {
     ctxDispatch({ type: "CART_REMOVE_ITEM", payload: item });
   };
 
-  async function checkoutHandler(productId, quantity) {
+  async function checkoutHandler(item, productId, quantity) {
     try {
       await axios.post("/api/orders", {
         productId: productId,
         quantity: quantity,
       });
       window.alert("order placed");
+      removeItemHandler(item);
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -128,7 +129,9 @@ export default function CartScreen() {
                       <Button
                         type="button"
                         variant="primary"
-                        onClick={() => checkoutHandler(item.id, item.quantity)}
+                        onClick={() =>
+                          checkoutHandler(item, item.id, item.quantity)
+                        }
                         disabled={cartItems.length === 0}
                       >
                         Proceed to Checkout
