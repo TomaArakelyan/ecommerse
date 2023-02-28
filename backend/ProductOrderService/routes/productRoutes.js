@@ -1,14 +1,10 @@
 import express from "express";
-import data from "../data.js";
+import Product from "../models/productModel.js";
 
 const productRouter = express.Router();
 
-productRouter.get("/", (req, res) => {
-  res.send(data.products);
-});
-
-productRouter.get("/:id", (req, res) => {
-  const product = data.products.find((p) => p.id == req.params.id);
+productRouter.get("/:id", async (req, res) => {
+  const product = await Product.findById(req.params.id);
   if (product) {
     res.send(product);
   } else {
@@ -16,10 +12,14 @@ productRouter.get("/:id", (req, res) => {
   }
 });
 
-productRouter.post("/", (req, res) => {
-  const { id, title, image, description, price, countInStock } = req.body;
+productRouter.get("/", async (req, res) => {
+  const products = await Product.find();
+  res.send(products);
+});
+
+productRouter.post("/", async (req, res) => {
+  const { title, image, description, price, countInStock } = req.body;
   if (
-    id == null ||
     title == null ||
     image == null ||
     description == null ||
@@ -29,29 +29,29 @@ productRouter.post("/", (req, res) => {
     res.status(400).send("Missing data");
   } else {
     const result = {
-      id: id,
       title: title,
       image: image,
       description: description,
       price: price,
       countInStock: countInStock,
     };
-    data.products.push(result);
+    await Product.insertMany(result);
     res.send(result);
   }
 });
 
-productRouter.delete("/:id", (req, res) => {
-  const product = data.products.find((p) => p.id == req.params.id);
+productRouter.delete("/:id", async (req, res) => {
+  const product = await Product.findById(req.params.id);
   if (product) {
-    data.products.pop(product);
+    await product.delete();
+    res.send("Deleted");
   } else {
     res.status(404).send({ message: "Product not found" });
   }
 });
 
-productRouter.put("/:id", (req, res) => {
-  const product = data.products.find((p) => p.id == req.params.id);
+productRouter.put("/:id", async (req, res) => {
+  const product = await Product.findById(req.params.id);
   if (product) {
     if (req.body.title) {
       product.title = req.body.title;
@@ -68,6 +68,7 @@ productRouter.put("/:id", (req, res) => {
     if (req.body.countInStock) {
       product.countInStock = req.body.countInStock;
     }
+    await product.save();
     res.send(product);
   } else {
     res.status(404).send({ message: "Product not found" });

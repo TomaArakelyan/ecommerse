@@ -21,8 +21,8 @@ function HomeScreen() {
       <h1>All Shoes</h1>
       <div className="products">
         {products.map((products) => (
-          <div className="product" key={products.id}>
-            <Link to={`/product/${products.id}`}>
+          <div className="product" key={products._id}>
+            <Link to={`/product/${products._id}`}>
               <img
                 src={products.image}
                 alt={products.title}
@@ -35,7 +35,7 @@ function HomeScreen() {
               <p>
                 <strong>${products.price}</strong>
               </p>
-              <Link to={`/product/${products.id}`}>
+              <Link to={`/product/${products._id}`}>
                 <button className="cart"> View details </button>
               </Link>
             </div>

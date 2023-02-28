@@ -17,7 +17,7 @@ export default function CartScreen() {
   } = state;
 
   const updateCartHandler = async (item, quantity) => {
-    const { data } = await axios.get(`/api/products/${item.id}`);
+    const { data } = await axios.get(`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
       window.alert("Sorry. Product is out of stock");
       return;
@@ -26,24 +26,19 @@ export default function CartScreen() {
       type: "CART_ADD_ITEM",
       payload: { ...item, quantity },
     });
+    const sessionInfo = JSON.parse(localStorage.getItem("sessionInfo"));
+    // console.log(sessionInfo.data._id)
+    await axios.patch(`/api/session/${sessionInfo.data._id}`, {
+      cart_items: cartItems,
+    });
   };
-  const removeItemHandler = (item) => {
+  const removeItemHandler = async (item) => {
     ctxDispatch({ type: "CART_REMOVE_ITEM", payload: item });
   };
 
-  async function checkoutHandler(item, productId, quantity) {
-    try {
-      await axios.post("/api/orders", {
-        productId: productId,
-        quantity: quantity,
-      });
-      window.alert("order placed");
-      removeItemHandler(item);
-      navigate("/");
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const checkoutHandler = async (item) => {
+    navigate("/login?redirect=/shipping");
+  };
 
   return (
     <div>
@@ -60,7 +55,7 @@ export default function CartScreen() {
           ) : (
             <ListGroup>
               {cartItems.map((item) => (
-                <ListGroup.Item key={item._id}>
+                <ListGroup.Item key={item.id}>
                   <Row className="align-items-center">
                     <Col md={4}>
                       <img
@@ -129,9 +124,7 @@ export default function CartScreen() {
                       <Button
                         type="button"
                         variant="primary"
-                        onClick={() =>
-                          checkoutHandler(item, item.id, item.quantity)
-                        }
+                        onClick={() => checkoutHandler(item)}
                         disabled={cartItems.length === 0}
                       >
                         Proceed to Checkout
