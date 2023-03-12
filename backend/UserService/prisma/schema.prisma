@@ -4,13 +4,13 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url = "file:/root/db/test.db"
+  provider = "mysql"
+  url = env("DATABASE_URL")
 }
 
 model User {
   id    Int     @id @default(autoincrement())
-  email String  @unique
+  email String  
   name  String
   password String
 }

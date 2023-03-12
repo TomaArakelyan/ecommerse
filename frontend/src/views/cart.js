@@ -17,7 +17,9 @@ export default function CartScreen() {
   } = state;
 
   const updateCartHandler = async (item, quantity) => {
-    const { data } = await axios.get(`/api/products/${item._id}`);
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_PRODUCTSERVICEURL}/products/${item._id}`
+    );
     if (data.countInStock < quantity) {
       window.alert("Sorry. Product is out of stock");
       return;
@@ -28,9 +30,12 @@ export default function CartScreen() {
     });
     const sessionInfo = JSON.parse(localStorage.getItem("sessionInfo"));
     // console.log(sessionInfo.data._id)
-    await axios.patch(`/api/session/${sessionInfo.data._id}`, {
-      cart_items: cartItems,
-    });
+    await axios.patch(
+      `${process.env.REACT_APP_PRODUCTSERVICEURL}/session/${sessionInfo.data._id}`,
+      {
+        cart_items: cartItems,
+      }
+    );
   };
   const removeItemHandler = async (item) => {
     ctxDispatch({ type: "CART_REMOVE_ITEM", payload: item });
