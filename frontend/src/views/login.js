@@ -27,10 +27,13 @@ export default function SigninScreen() {
         email,
         password,
       });
-      const sessionData = await Axios.post("/api/session", {
-        userId: data.id,
-        cart_items: cart.cartItems,
-      });
+      const sessionData = await Axios.post(
+        `${process.env.REACT_APP_PRODUCTSERVICEURL}/session`,
+        {
+          userId: data.id,
+          cart_items: cart.cartItems,
+        }
+      );
       localStorage.setItem("sessionInfo", JSON.stringify(sessionData));
 
       ctxDispatch({ type: "USER_SIGNIN", payload: data });

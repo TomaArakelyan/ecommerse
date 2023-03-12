@@ -1,14 +1,18 @@
-version: '3'
+version: "3"
 services:
   product_order_service:
     build: ./ProductOrderService
     ports:
       - "3002:3000"
+    environment:
+      - SERVER_NAME=product_order_service
 
   product_order_service_backup:
     build: ./ProductOrderService
     ports:
       - "3003:3000"
+    environment:
+      - SERVER_NAME=product_order_service_backup
 
   nginx:
     build: ./nginx
@@ -17,8 +21,6 @@ services:
     depends_on:
       - product_order_service
       - product_order_service_backup
-
-
 
   user_service:
     build: ./UserService
