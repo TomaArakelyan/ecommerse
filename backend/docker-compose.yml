@@ -6,6 +6,8 @@ services:
       - "3002:3000"
     environment:
       - SERVER_NAME=product_order_service
+    depends_on:
+      - redis
 
   product_order_service_backup:
     build: ./ProductOrderService
@@ -13,6 +15,8 @@ services:
       - "3003:3000"
     environment:
       - SERVER_NAME=product_order_service_backup
+    depends_on:
+      - redis
 
   nginx:
     build: ./nginx
@@ -26,3 +30,10 @@ services:
     build: ./UserService
     ports:
       - "3001:3001"
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
