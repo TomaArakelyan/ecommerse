@@ -44,7 +44,7 @@ export default function OrderScreen() {
       try {
         dispatch({ type: "FETCH_REQUEST" });
         const { data } = await axios.get(
-          `${process.env.REACT_APP_PRODUCTSERVICEURL}/orders/${orderId}`,
+          `${process.env.REACT_APP_ORDERSERVICEURL}/orders/${orderId}`,
           {
             headers: { authorization: `Bearer ${userInfo.token}` },
           }

@@ -1,20 +1,20 @@
 version: "3"
 services:
-  product_order_service:
-    build: ./ProductOrderService
+  product_service:
+    build: ./ProductService
     ports:
       - "3002:3000"
     environment:
-      - SERVER_NAME=product_order_service
+      - SERVER_NAME=product_service
     depends_on:
       - redis
 
-  product_order_service_backup:
-    build: ./ProductOrderService
+  product_service_backup:
+    build: ./ProductService
     ports:
       - "3003:3000"
     environment:
-      - SERVER_NAME=product_order_service_backup
+      - SERVER_NAME=product_service_backup
     depends_on:
       - redis
 
@@ -23,8 +23,8 @@ services:
     ports:
       - "8080:80"
     depends_on:
-      - product_order_service
-      - product_order_service_backup
+      - product_service
+      - product_service_backup
 
   user_service:
     build: ./UserService
@@ -33,6 +33,13 @@ services:
     depends_on:
       - redis
 
+  order_service:
+    build: ./OrderService
+    ports:
+      - "3002:3002"
+    environment:
+      - SERVER_NAME=order_service
+      
   redis:
     image: redis:latest
     ports:
