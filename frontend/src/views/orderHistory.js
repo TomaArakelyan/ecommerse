@@ -37,7 +37,7 @@ export default function OrderHistoryScreen() {
       dispatch({ type: "FETCH_REQUEST" });
       try {
         const { data } = await axios.get(
-          `${process.env.REACT_APP_PRODUCTSERVICEURL}/orders/myOrders`,
+          `${process.env.REACT_APP_ORDERSERVICEURL}/orders/myOrders`,
           {
             params: {
               userId: userInfo.id,

@@ -15,7 +15,7 @@ const setAsync = promisify(redisClient.set).bind(redisClient);
 const productRouter = express.Router();
 
 
-/* Modifying the method to include caching
+// Modifying the method to include caching
 productRouter.get("/:id", async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (product) {
@@ -24,52 +24,52 @@ productRouter.get("/:id", async (req, res) => {
     res.status(404).send({ message: "Product not found" });
   }
 });
-*/
-
-productRouter.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  const cacheKey = `product_${id}`;
-  const cachedProduct = await getAsync(cacheKey);
-  if (cachedProduct) {
-    console.log(`Product with id ${id} found in cache`);
-    res.send(JSON.parse(cachedProduct));
-  } else {
-    console.log(`Product with id ${id} not found in cache`);
-    const product = await Product.findById(id);
-    if (product) {
-      await setAsync(cacheKey, JSON.stringify(product));
-      res.send(product);
-    } else {
-      res.status(404).send({ message: "Product not found" });
-    }
-  }
-});
 
 
-/*  Modifying the method to include caching
+// productRouter.get("/:id", async (req, res) => {
+//   const { id } = req.params;
+//   const cacheKey = `product_${id}`;
+//   const cachedProduct = await getAsync(cacheKey);
+//   if (cachedProduct) {
+//     console.log(`Product with id ${id} found in cache`);
+//     res.send(JSON.parse(cachedProduct));
+//   } else {
+//     console.log(`Product with id ${id} not found in cache`);
+//     const product = await Product.findById(id);
+//     if (product) {
+//       await setAsync(cacheKey, JSON.stringify(product));
+//       res.send(product);
+//     } else {
+//       res.status(404).send({ message: "Product not found" });
+//     }
+//   }
+// });
+
+
+// Modifying the method to include caching
 productRouter.get("/", async (req, res) => {
   const products = await Product.find();
   res.send(products);
 });
-*/
 
 
-productRouter.get("/", async (req, res) => {
-  const cachedProducts = await getAsync("products");
-  if (cachedProducts) {
-    console.log("Products found in cache");
-    res.send(JSON.parse(cachedProducts));
-  } else {
-    console.log("Products not found in cache");
-    const products = await Product.find();
-    if (products) {
-      await setAsync("products", JSON.stringify(products));
-      res.send(products);
-    } else {
-      res.status(404).send({ message: "Products not found" });
-    }
-  }
-});
+
+// productRouter.get("/", async (req, res) => {
+//   const cachedProducts = await getAsync("products");
+//   if (cachedProducts) {
+//     console.log("Products found in cache");
+//     res.send(JSON.parse(cachedProducts));
+//   } else {
+//     console.log("Products not found in cache");
+//     const products = await Product.find();
+//     if (products) {
+//       await setAsync("products", JSON.stringify(products));
+//       res.send(products);
+//     } else {
+//       res.status(404).send({ message: "Products not found" });
+//     }
+//   }
+// });
 
 productRouter.post("/", async (req, res) => {
   const { title, image, description, price, countInStock } = req.body;

@@ -1,11 +1,25 @@
 import express from "express";
 import Order from "../models/orderModel.js";
-const orderRouter = express.Router();
 import { isAuth } from "../utils.js";
+import axios from "axios";
+
+
+const orderRouter = express.Router();
+
 
 orderRouter.post("/", isAuth, async (req, res) => {
+  const productIds = req.body.orderItems.map(x => x._id);
+  const productResponse = await axios.get(`${process.env.PRODUCTSERVICEURL}/products`, { params: { ids: productIds.join(',') } });
+  const products = productResponse.data;
   const newOrder = new Order({
-    orderItems: req.body.orderItems.map((x) => ({ ...x, product: x._id })),
+    orderItems: req.body.orderItems.map((x, i) => ({
+      product: products[i]._id,
+      name: products[i].title,
+      image: products[i].image,
+      price: products[i].price,
+      countInStock: products[i].countInStock,
+      quantity: x.quantity,
+    })),
     shippingAddress: req.body.shippingAddress,
     itemsPrice: req.body.itemsPrice,
     shippingPrice: req.body.shippingPrice,

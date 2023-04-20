@@ -1,7 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import orderRouter from "./routes/orderRoutes.js";
 import productRouter from "./routes/productRoutes.js";
 import sessionRouter from "./routes/sessionRoutes.js";
 import serverLog from "./models/serverLogModel.js";
@@ -40,7 +39,6 @@ app.get("/logs", async (req, res) => {
   res.send(logs);
 });
 
-app.use("/api/orders", orderRouter);
 app.use("/api/products", productRouter);
 app.use("/api/session", sessionRouter);
 
